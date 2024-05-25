@@ -73,6 +73,6 @@ jobs:
 
   VisionFive-Buildroot-Build:
     needs: VisionFive-Buildroot-Check
-    if: env.VisionFive-Buildroot-Check-duration <= 86400
+    if: ${{ env.VisionFive-Buildroot-Check-duration <= 86400 }}
     uses: ArielHeleneto/support-matrix/.github/workflows/VisionFive-Buildroot.yaml@main
     

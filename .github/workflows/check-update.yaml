@@ -1,4 +1,4 @@
-name: Daily Update Check
+name: Daily Update Check2
 
 on:
   workflow_dispatch:

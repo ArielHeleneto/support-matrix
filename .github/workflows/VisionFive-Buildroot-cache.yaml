@@ -1,4 +1,4 @@
-name: Bulid VisionFive Buildroot Image (Cache Ver.)
+name: Bulid VisionFive Buildroot Image (CI Version)
 
 on:
   workflow_dispatch:
@@ -117,6 +117,10 @@ jobs:
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "CI had built on commit [${{ steps.truecommit.outputs.shortid }}](https://git.busybox.net/buildroot/commit/id=${{ steps.truecommit.outputs.longid }}). The commit message is shown below. To rebuild the image, delete the cache." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        cat ${{ github.workspace }}/message.log >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Artifacts Hash" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY

@@ -36,6 +36,8 @@ jobs:
       working-directory: ${{ github.workspace }}/buildroot
       run: |
         echo "duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_OUTPUT"
+        ls ./.github/workflows/VisionFive-Buildroot.yaml
+        ll ./.github/workflows/
     
     - name: Call Build Workflow
       id: call 

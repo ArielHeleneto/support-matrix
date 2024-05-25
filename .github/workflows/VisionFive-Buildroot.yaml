@@ -114,11 +114,11 @@ jobs:
       run: |
         echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "[CI #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has found a cached VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
+        echo "[CI #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has found a cached VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }}). To rebuild the image, delete the cache \`${{ runner.os }}-VisionFive-Buildroot-${{ steps.truecommit.outputs.longid }}\` in [Cache](${{ github.server_url }}/${{ github.repository }}/actions/caches)." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "CI had built on commit [${{ steps.truecommit.outputs.shortid }}](https://git.busybox.net/buildroot/commit/id=${{ steps.truecommit.outputs.longid }}). The commit message is shown below. To rebuild the image, delete the cache." >> $GITHUB_STEP_SUMMARY
+        echo "CI had built on commit [${{ steps.truecommit.outputs.shortid }}](https://git.busybox.net/buildroot/commit/id=${{ steps.truecommit.outputs.longid }}). The commit message is shown below." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
         cat ${{ github.workspace }}/message.log >> $GITHUB_STEP_SUMMARY

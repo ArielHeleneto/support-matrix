@@ -112,7 +112,7 @@ jobs:
     - name: Output Cache Summary
       if: steps.cache-image.outputs.cache-hit == 'true'
       run: |
-        echo "# Bulid VisionFive Buildroot Image" >> $GITHUB_STEP_SUMMARY
+        echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "[CI #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has found a cached VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY

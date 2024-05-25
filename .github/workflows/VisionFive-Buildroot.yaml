@@ -78,7 +78,7 @@ jobs:
       run: |
         echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has successfully built the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
+        echo "[CI #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has successfully built the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -114,7 +114,7 @@ jobs:
       run: |
         echo "# Bulid VisionFive Buildroot Image" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has found a cached VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
+        echo "[CI #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has found a cached VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -136,7 +136,7 @@ jobs:
       run: |
         echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has failed to build the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
+        echo "[CI #${{ github.number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has failed to build the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY

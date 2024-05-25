@@ -8,6 +8,7 @@ on:
 
 env:
   TZ: Asia/Shanghai
+  DAY_OF_WEEK: Monday
 
 jobs:
   VisionFive-Buildroot-Check:
@@ -73,6 +74,7 @@ jobs:
 
   VisionFive-Buildroot-Build:
     needs: VisionFive-Buildroot-Check
-    if: ${{ env.VisionFive_Buildroot_Check_duration <= 86400 }}
+    # if: ${{ env.VisionFive_Buildroot_Check_duration <= 86400 }}
+    if: ${{ env.DAY_OF_WEEK == 'Monday' }}
     uses: ArielHeleneto/support-matrix/.github/workflows/VisionFive-Buildroot.yaml@main
     

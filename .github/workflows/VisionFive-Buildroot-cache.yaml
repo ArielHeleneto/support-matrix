@@ -54,7 +54,8 @@ jobs:
 
     - name: Generate Hash
       id: hash
-      run: echo "$(sha256sum ${{ steps.imgpath.outputs.path }})" >> ${{ github.workspace }}/VisionFive-Buildroot.sha256
+      working-directory: ${{ github.workspace }}/output/images/
+      run: echo "$(sha256sum sdcard.img)" >> ${{ github.workspace }}/VisionFive-Buildroot.sha256
 
     - name: Upload Image
       uses: actions/upload-artifact@main

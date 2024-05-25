@@ -29,7 +29,7 @@ jobs:
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/output/images/sdcard.img
-        key: ${{ runner.os }}-VisionFive-${{ steps.truecommit.outputs.longid }}
+        key: ${{ runner.os }}-VisionFive-Buildroot-${{ steps.truecommit.outputs.longid }}
 
     - name: Initialization Environment
       if: ${{ steps.cache-image.outputs.cache-hit != 'true' }}
@@ -40,12 +40,12 @@ jobs:
 
     - name: Make Config
       if: ${{ steps.cache-image.outputs.cache-hit != 'true' }}
-      run: make visionfive_defconfig | tee ${{ github.workspace }}/config.log
+      run: make visionfive_defconfig 2>&1 | tee ${{ github.workspace }}/config.log
 
     - name: Make Image
       id: imagegen
       if: ${{ steps.cache-image.outputs.cache-hit != 'true' }}
-      run: make -j$(nproc) | tee ${{ github.workspace }}/build.log
+      run: make -j$(nproc) 2>&1 | tee ${{ github.workspace }}/build.log
 
     - name: Check Image Path
       id: imgpath
@@ -72,6 +72,13 @@ jobs:
           ${{ github.workspace }}/config.log
           ${{ github.workspace }}/build.log
     
+    - name: ls
+      run: |
+        ls
+        ls ${{ github.workspace }}
+        cat ${{ github.workspace }}/message.log
+        tail -100 ${{ github.workspace }}/config.log
+
     - name: Output Success Summary
       if: steps.imagegen.conclusion == 'success' && steps.cache-image.outputs.cache-hit != 'true'
       run: |

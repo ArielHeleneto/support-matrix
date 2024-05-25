@@ -71,18 +71,11 @@ jobs:
         path: |
           ${{ github.workspace }}/config.log
           ${{ github.workspace }}/build.log
-    
-    - name: ls
-      run: |
-        ls
-        ls ${{ github.workspace }}
-        cat ${{ github.workspace }}/message.log
-        tail -100 ${{ github.workspace }}/config.log
 
     - name: Output Success Summary
-      if: steps.imagegen.conclusion == 'success' && steps.cache-image.outputs.cache-hit != 'true'
+      if: steps.imagegen.outcome == 'success' && steps.cache-image.outputs.cache-hit != 'true'
       run: |
-        echo "# Bulid VisionFive Buildroot Image" >> $GITHUB_STEP_SUMMARY
+        echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has successfully built the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -95,21 +88,25 @@ jobs:
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Artifacts Hash" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-        echo "${{ steps.hash.outputs.sha256 }}" >> $GITHUB_STEP_SUMMARY
+        cat ${{ github.workspace }}/VisionFive-Buildroot.sha256 >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Build Log" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Last 100 Lines of Config Log" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-        tail -100 ${{ github.workspace }}/config.log
+        tail -100 ${{ github.workspace }}/config.log >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
         echo "### Last 100 Lines of Build Log" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-        tail -100 ${{ github.workspace }}/build.log
+        tail -100 ${{ github.workspace }}/build.log >> $GITHUB_STEP_SUMMARY
         echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
 
     - name: Output Cache Summary
       if: steps.cache-image.outputs.cache-hit == 'true'
@@ -121,4 +118,40 @@ jobs:
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "CI had built on commit [${{ steps.truecommit.outputs.shortid }}](https://git.busybox.net/buildroot/commit/id=${{ steps.truecommit.outputs.longid }}). The commit message is shown below. To rebuild the image, delete the cache." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Artifacts Hash" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        cat ${{ github.workspace }}/VisionFive-Buildroot.sha256 >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Output Success Summary
+      if: steps.imagegen.outcome == 'success' && steps.cache-image.outputs.cache-hit != 'true'
+      run: |
+        echo "# VisionFive Buildroot Image Building Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has failed to build the VisionFive Buildroot image powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }})." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "CI has built on commit [${{ steps.truecommit.outputs.shortid }}](https://git.busybox.net/buildroot/commit/id=${{ steps.truecommit.outputs.longid }}). The commit message is shown below." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        cat ${{ github.workspace }}/message.log >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Build Log" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Last 200 Lines of Config Log" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        tail -200 ${{ github.workspace }}/config.log >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Last 200 Lines of Build Log" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        tail -200 ${{ github.workspace }}/build.log >> $GITHUB_STEP_SUMMARY
+        echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY

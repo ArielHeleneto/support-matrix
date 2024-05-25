@@ -1,4 +1,4 @@
-name: Daily Update Check
+name: Daily Update Check2
 
 on:
   workflow_dispatch:
@@ -8,7 +8,6 @@ on:
 
 env:
   TZ: Asia/Shanghai
-  DAY_OF_WEEK: Monday
 
 jobs:
   VisionFive-Buildroot-Check:
@@ -35,7 +34,7 @@ jobs:
     - name: Calculate Time Difference
       id: time
       working-directory: ${{ github.workspace }}/buildroot
-      run: echo "VisionFive_Buildroot_Check_duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_ENV"
+      run: echo "duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_OUTPUT"
     
     - name: tree
       run: tree
@@ -74,7 +73,6 @@ jobs:
 
   VisionFive-Buildroot-Build:
     needs: VisionFive-Buildroot-Check
-    # if: ${{ env.VisionFive_Buildroot_Check_duration <= 86400 }}
-    if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+    if: needs.VisionFive-Buildroot-Check.steps.time.outputs.duration <= 86400
     uses: ArielHeleneto/support-matrix/.github/workflows/VisionFive-Buildroot.yaml@main
     

@@ -34,9 +34,10 @@ jobs:
     - name: Calculate Time Difference
       id: time
       working-directory: ${{ github.workspace }}/buildroot
-      run: |
-        echo "duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_OUTPUT"
-        tree
+      run: echo "duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_OUTPUT"
+    
+    - name: tree
+      run: tree
     
     - name: Call Build Workflow
       id: call 

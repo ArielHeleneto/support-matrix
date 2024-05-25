@@ -49,7 +49,6 @@ jobs:
 
     - name: Check Image Path
       id: imgpath
-      if: ${{ steps.cache-image.outputs.cache-hit != 'true' }}
       run: echo "path=$(ls ${{ github.workspace }}/output/images/sdcard.img)" >> "$GITHUB_OUTPUT"
 
     - name: Generate Hash

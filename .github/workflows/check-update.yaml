@@ -34,7 +34,7 @@ jobs:
     - name: Calculate Time Difference
       id: time
       working-directory: ${{ github.workspace }}/buildroot
-      run: echo "duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_OUTPUT"
+      run: echo "VisionFive-Buildroot-Check-duration=$(( $(date +%s) - $(git log --pretty=format:'%cd' --date=unix -1) ))" >> "$GITHUB_ENV"
     
     - name: tree
       run: tree
@@ -44,7 +44,7 @@ jobs:
       run: |
         echo "# VisionFive Buildroot Last Commit Check" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
-        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has successfully triggered a VisionFive Buildroot image CI build powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }}) since last commit is within 24 hours." >> $GITHUB_STEP_SUMMARY
+        echo "[CI ${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) has triggered a VisionFive Buildroot image CI build powered by [${{ github.repository }}](${{ github.server_url }}/${{ github.repository }}) since last commit is within 24 hours." >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "## Commit Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
@@ -73,6 +73,6 @@ jobs:
 
   VisionFive-Buildroot-Build:
     needs: VisionFive-Buildroot-Check
-    if: steps.time.outputs.duration <= 86400
+    if: env.VisionFive-Buildroot-Check-duration <= 86400
     uses: ArielHeleneto/support-matrix/.github/workflows/VisionFive-Buildroot.yaml@main
     

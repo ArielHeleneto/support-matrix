@@ -2,7 +2,8 @@ name: Bulid VisionFive Buildroot Image (CI Version)
 
 on:
   workflow_dispatch:
-  workflow_call:
+  schedule:
+    - cron: "0 0 4 * *"
     
 env:
   TZ: Asia/Shanghai
@@ -53,7 +54,7 @@ jobs:
 
     - name: Generate Hash
       id: hash
-      run: echo "sha256=$(sha256sum ${{ steps.imgpath.outputs.path }})" >> ${{ github.workspace }}/VisionFive-Buildroot.sha256
+      run: echo "$(sha256sum ${{ steps.imgpath.outputs.path }})" >> ${{ github.workspace }}/VisionFive-Buildroot.sha256
 
     - name: Upload Image
       uses: actions/upload-artifact@main

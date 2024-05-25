@@ -42,7 +42,7 @@ jobs:
     - name: Call Build Workflow
       id: call 
       if: steps.time.outputs.duration <= 86400
-      uses: ./.github/workflows/VisionFive-Buildroot.yaml
+      uses: ArielHeleneto/support-matrix/.github/workflows/VisionFive-Buildroot.yaml@main
     
     - name: Output Success Summary
       if: steps.call.conclusion == 'success'

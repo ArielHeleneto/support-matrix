@@ -53,6 +53,11 @@ jobs:
         id: hash
         working-directory: ${{ github.workspace }}/assets/output/
         run: echo "$(sha256sum *)" >> ${{ github.workspace }}/assets/output/result.sha256
+      - name: Upload Table
+        uses: actions/upload-artifact@main
+        with:
+          name: support-matrix-${{ github.run_id }}
+          path: 'assets/output'
       - name: Output Success Summary
         run: |
           echo "# Support Matrix Table Generate Report" >> $GITHUB_STEP_SUMMARY
